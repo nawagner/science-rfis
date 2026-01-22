@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industrial Policy Salon - Science RFI + NSF Tech Labs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;500;600;700&family=Michroma&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --lcars-orange: #ff9900;
+            --lcars-gold: #ffcc99;
+            --lcars-peach: #ffaa66;
+            --lcars-purple: #cc99cc;
+            --lcars-lavender: #9999ff;
+            --lcars-blue: #9999cc;
+            --lcars-cyan: #66cccc;
+            --lcars-red: #cc6666;
+            --lcars-pink: #cc6699;
+            --lcars-beige: #ddccaa;
+            --lcars-tan: #bb9966;
+            --bg-dark: #000000;
+            --bg-panel: #111118;
+            --text-primary: #ffcc99;
+            --text-secondary: #cc99cc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: 'Antonio', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Starfield background */
+        .starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: var(--min-opacity); }
+            50% { opacity: var(--max-opacity); }
+        }
+
+        /* Warp streaks effect on hover for header */
+        .lcars-header::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 200px;
+            right: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--lcars-cyan), transparent);
+            opacity: 0;
+            transform: translateY(-50%) scaleX(0);
+            transition: all 0.5s ease;
+        }
+
+        .lcars-header:hover::after {
+            opacity: 0.5;
+            transform: translateY(-50%) scaleX(1);
+        }
+
+        /* LCARS Frame */
+        .lcars-frame {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            grid-template-rows: auto 1fr;
+            min-height: 100vh;
+            gap: 3px;
+            padding: 20px;
+        }
+
+        /* Left sidebar */
+        .lcars-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .lcars-cap {
+            background: var(--lcars-orange);
+            height: 40px;
+            border-radius: 20px 0 0 0;
+        }
+
+        .lcars-block {
+            background: var(--lcars-purple);
+            height: 60px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding-left: 15px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            color: var(--bg-dark);
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: filter 0.2s;
+        }
+
+        .lcars-block:hover {
+            filter: brightness(1.2);
+        }
+
+        .lcars-block.orange { background: var(--lcars-orange); }
+        .lcars-block.gold { background: var(--lcars-gold); }
+        .lcars-block.peach { background: var(--lcars-peach); }
+        .lcars-block.lavender { background: var(--lcars-lavender); }
+        .lcars-block.blue { background: var(--lcars-blue); }
+        .lcars-block.cyan { background: var(--lcars-cyan); }
+        .lcars-block.pink { background: var(--lcars-pink); }
+        .lcars-block.tan { background: var(--lcars-tan); }
+
+        .lcars-block::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 30px;
+            background: inherit;
+            border-radius: 0 15px 15px 0;
+        }
+
+        .lcars-spacer {
+            flex: 1;
+            background: var(--lcars-tan);
+            min-height: 100px;
+            border-radius: 0 0 0 40px;
+        }
+
+        .lcars-bottom-cap {
+            background: var(--lcars-orange);
+            height: 80px;
+            border-radius: 0 0 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lcars-bottom-cap img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+        }
+
+        /* Header bar */
+        .lcars-header {
+            grid-column: 2;
+            display: flex;
+            align-items: stretch;
+            gap: 3px;
+            height: 140px;
+            position: relative;
+        }
+
+        .header-elbow {
+            width: 100px;
+            background: var(--lcars-orange);
+            border-radius: 0 0 0 40px;
+            position: relative;
+        }
+
+        .header-elbow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: var(--lcars-orange);
+        }
+
+        .header-elbow::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: var(--bg-dark);
+            border-radius: 40px 0 0 0;
+        }
+
+        .header-bar {
+            flex: 1;
+            background: var(--lcars-orange);
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 15px 30px 0 30px;
+            position: relative;
+        }
+
+        .header-bar::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: var(--bg-dark);
+        }
+
+        .header-title {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-title h1 {
+            font-family: 'Michroma', sans-serif;
+            font-size: 18px;
+            letter-spacing: 5px;
+            color: var(--bg-dark);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .header-title .subtitle {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 28px;
+            color: var(--lcars-gold);
+            margin-top: 0;
+        }
+
+        .header-buttons {
+            display: flex;
+            position: relative;
+            z-index: 1;
+            gap: 8px;
+            margin-left: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-btn {
+            width: 80px;
+            height: 30px;
+            border-radius: 15px;
+            border: none;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 10px;
+            cursor: pointer;
+            transition: filter 0.2s;
+        }
+
+        .header-btn:hover {
+            filter: brightness(1.3);
+        }
+
+        .header-btn.purple { background: var(--lcars-purple); color: var(--bg-dark); }
+        .header-btn.blue { background: var(--lcars-blue); color: var(--bg-dark); }
+        .header-btn.cyan { background: var(--lcars-cyan); color: var(--bg-dark); }
+
+        .header-end {
+            width: 60px;
+            background: var(--lcars-purple);
+            border-radius: 0 30px 0 0;
+            position: relative;
+        }
+
+        .header-end::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--bg-dark);
+        }
+
+        /* Main content */
+        .lcars-content {
+            grid-column: 2;
+            padding: 20px 40px;
+            overflow-y: auto;
+        }
+
+        /* Section styling */
+        .section {
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+        .section:nth-child(5) { animation-delay: 0.5s; }
+        .section:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .section-bar {
+            width: 8px;
+            height: 40px;
+            border-radius: 4px;
+        }
+
+        .section-bar.orange { background: var(--lcars-orange); }
+        .section-bar.purple { background: var(--lcars-purple); }
+        .section-bar.cyan { background: var(--lcars-cyan); }
+        .section-bar.lavender { background: var(--lcars-lavender); }
+        .section-bar.pink { background: var(--lcars-pink); }
+        .section-bar.gold { background: var(--lcars-gold); }
+
+        .section-title {
+            font-family: 'Michroma', sans-serif;
+            font-size: 18px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .section-title.orange { color: var(--lcars-orange); }
+        .section-title.purple { color: var(--lcars-purple); }
+        .section-title.cyan { color: var(--lcars-cyan); }
+        .section-title.lavender { color: var(--lcars-lavender); }
+        .section-title.pink { color: var(--lcars-pink); }
+        .section-title.gold { color: var(--lcars-gold); }
+
+        /* Hero section */
+        .hero-intro {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--lcars-beige);
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+
+        .hero-intro strong {
+            color: var(--lcars-cyan);
+        }
+
+        .stardate {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 14px;
+            color: var(--lcars-purple);
+            margin-bottom: 15px;
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            background: var(--bg-panel);
+            border-radius: 0 20px 20px 0;
+            overflow: hidden;
+            border-left: 8px solid var(--lcars-orange);
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 150px 180px 1fr auto;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(255, 153, 0, 0.05);
+            transition: background 0.3s;
+        }
+
+        .timeline-item:hover {
+            background: rgba(255, 153, 0, 0.1);
+        }
+
+        .timeline-item.open {
+            background: rgba(102, 204, 204, 0.15);
+            border-left: 4px solid var(--lcars-cyan);
+        }
+
+        .timeline-date {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 14px;
+            color: var(--lcars-gold);
+        }
+
+        .timeline-name {
+            font-size: 16px;
+            color: var(--text-primary);
+        }
+
+        .timeline-desc {
+            font-size: 13px;
+            color: var(--lcars-beige);
+            opacity: 0.8;
+        }
+
+        .timeline-status {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 12px;
+            padding: 6px 16px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+
+        .timeline-status.closed {
+            background: var(--lcars-purple);
+            color: var(--bg-dark);
+        }
+
+        .timeline-status.open {
+            background: var(--lcars-cyan);
+            color: var(--bg-dark);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* RFI Cards */
+        .rfi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .rfi-card {
+            background: var(--bg-panel);
+            border-radius: 0 25px 25px 0;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .rfi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(255, 153, 0, 0.2);
+        }
+
+        .rfi-card-header {
+            padding: 20px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .rfi-card.nsf .rfi-card-header { background: var(--lcars-orange); }
+        .rfi-card.ostp .rfi-card-header { background: var(--lcars-purple); }
+        .rfi-card.doe .rfi-card-header { background: var(--lcars-cyan); }
+
+        .rfi-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Michroma', sans-serif;
+            font-size: 12px;
+            color: var(--text-primary);
+        }
+
+        .rfi-card-title {
+            font-family: 'Michroma', sans-serif;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: var(--bg-dark);
+            text-transform: uppercase;
+        }
+
+        .rfi-card-body {
+            padding: 25px;
+            border-left: 6px solid;
+        }
+
+        .rfi-card.nsf .rfi-card-body { border-color: var(--lcars-orange); }
+        .rfi-card.ostp .rfi-card-body { border-color: var(--lcars-purple); }
+        .rfi-card.doe .rfi-card-body { border-color: var(--lcars-cyan); }
+
+        .rfi-desc {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--lcars-beige);
+            margin-bottom: 20px;
+        }
+
+        .rfi-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .rfi-stat {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            padding: 6px 12px;
+            border-radius: 10px;
+            background: rgba(255, 153, 0, 0.1);
+            color: var(--lcars-gold);
+        }
+
+        .rfi-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .rfi-link {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 12px;
+            color: var(--lcars-cyan);
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid var(--lcars-cyan);
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .rfi-link:hover {
+            background: var(--lcars-cyan);
+            color: var(--bg-dark);
+        }
+
+        /* Responses list */
+        .responses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .response-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            background: var(--bg-panel);
+            border-left: 4px solid var(--lcars-lavender);
+            border-radius: 0 15px 15px 0;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .response-item:hover {
+            background: rgba(153, 153, 255, 0.1);
+            border-left-color: var(--lcars-cyan);
+            transform: translateX(5px);
+        }
+
+        .response-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--lcars-lavender);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Michroma', sans-serif;
+            font-size: 10px;
+            color: var(--bg-dark);
+            flex-shrink: 0;
+        }
+
+        .response-name {
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .response-type {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 10px;
+            color: var(--lcars-purple);
+            margin-top: 3px;
+        }
+
+        .responses-note {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 12px;
+            color: var(--lcars-beige);
+            opacity: 0.7;
+            margin-top: 20px;
+            padding-left: 20px;
+            border-left: 2px solid var(--lcars-purple);
+        }
+
+        /* Discussion questions */
+        .questions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .question-group {
+            background: var(--bg-panel);
+            border-radius: 0 20px 20px 0;
+            overflow: hidden;
+        }
+
+        .question-group-header {
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: filter 0.2s;
+        }
+
+        .question-group-header:hover {
+            filter: brightness(1.1);
+        }
+
+        .question-group.genesis .question-group-header { background: var(--lcars-cyan); }
+        .question-group.risks .question-group-header { background: var(--lcars-pink); }
+        .question-group.geo .question-group-header { background: var(--lcars-lavender); }
+        .question-group.nsf .question-group-header { background: var(--lcars-orange); }
+        .question-group.ostp .question-group-header { background: var(--lcars-purple); }
+        .question-group.collab .question-group-header { background: var(--lcars-gold); }
+
+        .question-group-title {
+            font-family: 'Michroma', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--bg-dark);
+            text-transform: uppercase;
+        }
+
+        .question-group-badge {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 10px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            margin-left: auto;
+        }
+
+        .question-list {
+            padding: 20px 25px;
+            border-left: 6px solid;
+        }
+
+        .question-group.genesis .question-list { border-color: var(--lcars-cyan); }
+        .question-group.risks .question-list { border-color: var(--lcars-pink); }
+        .question-group.geo .question-list { border-color: var(--lcars-lavender); }
+        .question-group.nsf .question-list { border-color: var(--lcars-orange); }
+        .question-group.ostp .question-list { border-color: var(--lcars-purple); }
+        .question-group.collab .question-list { border-color: var(--lcars-gold); }
+
+        .question-item {
+            display: flex;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 153, 0, 0.1);
+        }
+
+        .question-item:last-child {
+            border-bottom: none;
+        }
+
+        .question-num {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 12px;
+            color: var(--lcars-purple);
+            min-width: 30px;
+        }
+
+        .question-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--lcars-beige);
+        }
+
+        .question-text a {
+            color: var(--lcars-cyan);
+            text-decoration: none;
+            border-bottom: 1px dashed var(--lcars-cyan);
+        }
+
+        .question-text a:hover {
+            color: var(--lcars-gold);
+            border-color: var(--lcars-gold);
+        }
+
+        /* Resources */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .qr-container {
+            background: var(--bg-panel);
+            padding: 20px;
+            border-radius: 0 20px 20px 0;
+            border-left: 6px solid var(--lcars-gold);
+            text-align: center;
+        }
+
+        .qr-container img {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .qr-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            color: var(--lcars-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .resources-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .resource-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            background: var(--bg-panel);
+            border-left: 4px solid var(--lcars-orange);
+            border-radius: 0 15px 15px 0;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .resource-link:hover {
+            background: rgba(255, 153, 0, 0.1);
+            transform: translateX(5px);
+        }
+
+        .resource-link-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--lcars-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 10px;
+            color: var(--bg-dark);
+        }
+
+        .resource-link-text {
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .lcars-frame {
+                grid-template-columns: 1fr;
+                padding: 10px;
+            }
+
+            .lcars-sidebar {
+                display: none;
+            }
+
+            .lcars-header {
+                grid-column: 1;
+                height: auto;
+                flex-direction: column;
+                border-radius: 20px;
+                overflow: hidden;
+            }
+
+            .header-elbow, .header-end {
+                display: none;
+            }
+
+            .header-bar {
+                flex-direction: column;
+                padding: 20px;
+                border-radius: 20px;
+            }
+
+            .header-bar::before {
+                display: none;
+            }
+
+            .header-title {
+                text-align: center;
+            }
+
+            .header-buttons {
+                margin: 15px 0 0 0;
+            }
+
+            .lcars-content {
+                grid-column: 1;
+                padding: 20px 15px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .rfi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .qr-container {
+                max-width: 200px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Scan line effect */
+        .lcars-content::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.03) 2px,
+                rgba(0, 0, 0, 0.03) 4px
+            );
+            pointer-events: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="starfield" id="starfield"></div>
+    <div class="lcars-frame">
+        <!-- Left Sidebar -->
+        <div class="lcars-sidebar">
+            <div class="lcars-cap"></div>
+            <a href="#timeline" class="lcars-block orange">TIMELINE</a>
+            <a href="#rfis" class="lcars-block gold">RFI DATA</a>
+            <a href="#responses" class="lcars-block lavender">RESPONSES</a>
+            <a href="#discussion" class="lcars-block cyan">DISCUSS</a>
+            <a href="#resources" class="lcars-block purple">RESOURCES</a>
+            <div class="lcars-spacer"></div>
+            <div class="lcars-bottom-cap">
+                <img src="qrcode.png" alt="QR Code">
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header class="lcars-header">
+            <div class="header-elbow"></div>
+            <div class="header-bar">
+                <div class="header-title">
+                    <h1>Industrial Policy Salon</h1>
+                    <div class="subtitle">Science RFI + NSF Tech Labs</div>
+                </div>
+                <div class="header-buttons">
+                    <button class="header-btn purple">01-22</button>
+                    <button class="header-btn blue">2026</button>
+                    <button class="header-btn cyan">LIVE</button>
+                </div>
+            </div>
+            <div class="header-end"></div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="lcars-content">
+            <!-- Hero Section -->
+            <section class="section" id="hero">
+                <div class="section-header">
+                    <div class="section-bar orange"></div>
+                    <h2 class="section-title orange">Mission Briefing</h2>
+                </div>
+                <div class="stardate">STARDATE 2026.022 // SALON SESSION ACTIVE</div>
+                <p class="hero-intro">
+                    Welcome to the <strong>Industrial Policy Salon</strong>, where we analyze and discuss critical government Requests for Information shaping the future of American science. Today's session focuses on three major RFIs: the <strong>NSF Tech Labs Initiative</strong>, the <strong>OSTP Scientific Enterprise</strong> reform, and the <strong>DOE Genesis Mission</strong> for AI workforce development.
+                </p>
+                <p class="hero-intro">
+                    Only one RFI remains open for submissions. Review the data below and engage in structured discussion on how these initiatives may reshape scientific funding and research infrastructure.
+                </p>
+            </section>
+
+            <!-- Timeline Section -->
+            <section class="section" id="timeline">
+                <div class="section-header">
+                    <div class="section-bar purple"></div>
+                    <h2 class="section-title purple">RFI Deadline Status</h2>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="timeline-date">DEC 26, 2025</span>
+                        <span class="timeline-name">OSTP Scientific Enterprise</span>
+                        <span class="timeline-desc">Federal policy to accelerate American science</span>
+                        <span class="timeline-status closed">CLOSED</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">JAN 20, 2026</span>
+                        <span class="timeline-name">NSF Tech Labs</span>
+                        <span class="timeline-desc">Independent research organization funding</span>
+                        <span class="timeline-status closed">CLOSED</span>
+                    </div>
+                    <div class="timeline-item open">
+                        <span class="timeline-date">MAR 04, 2026</span>
+                        <span class="timeline-name">DOE Genesis AI</span>
+                        <span class="timeline-desc">AI workforce development initiative</span>
+                        <span class="timeline-status open">OPEN</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RFI Cards Section -->
+            <section class="section" id="rfis">
+                <div class="section-header">
+                    <div class="section-bar cyan"></div>
+                    <h2 class="section-title cyan">RFI Database</h2>
+                </div>
+                <div class="rfi-grid">
+                    <!-- NSF Tech Labs -->
+                    <div class="rfi-card nsf">
+                        <div class="rfi-card-header">
+                            <div class="rfi-icon">NSF</div>
+                            <h3 class="rfi-card-title">Tech Labs Initiative</h3>
+                        </div>
+                        <div class="rfi-card-body">
+                            <p class="rfi-desc">
+                                Fund independent research organizations to address technical challenges traditional university and industry labs cannot easily solve. Full-time teams with operational autonomy pursuing breakthrough science.
+                            </p>
+                            <div class="rfi-stats">
+                                <span class="rfi-stat">$10-50M/YEAR</span>
+                                <span class="rfi-stat">4+ YEAR AWARDS</span>
+                                <span class="rfi-stat">SPRING 2026 SOLICITATION</span>
+                            </div>
+                            <div class="rfi-links">
+                                <a href="https://www.nsf.gov/news/nsf-announces-new-initiative-launch-scale-new-generation" target="_blank" class="rfi-link">NSF ANNOUNCEMENT</a>
+                                <a href="https://sam.gov/workspace/contract/opp/7332ade93217443ba8c9abb916904e03/view" target="_blank" class="rfi-link">SAM.GOV RFI</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- OSTP -->
+                    <div class="rfi-card ostp">
+                        <div class="rfi-card-header">
+                            <div class="rfi-icon">OSTP</div>
+                            <h3 class="rfi-card-title">Scientific Enterprise</h3>
+                        </div>
+                        <div class="rfi-card-body">
+                            <p class="rfi-desc">
+                                Federal policy updates to accelerate American science, enable groundbreaking discoveries, and ensure scientific progress benefits all Americans. Covers funding mechanisms, public-private partnerships, and regulatory reform.
+                            </p>
+                            <div class="rfi-stats">
+                                <span class="rfi-stat">13 QUESTIONS</span>
+                                <span class="rfi-stat">DOCKET: OSTP-TECH-2025-0100</span>
+                            </div>
+                            <div class="rfi-links">
+                                <a href="https://www.federalregister.gov/documents/2025/11/26/2025-21150/notice-of-request-for-information-accelerating-the-american-scientific-enterprise" target="_blank" class="rfi-link">FEDERAL REGISTER</a>
+                                <a href="http://www.regulations.gov" target="_blank" class="rfi-link">REGULATIONS.GOV</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DOE Genesis -->
+                    <div class="rfi-card doe">
+                        <div class="rfi-card-header">
+                            <div class="rfi-icon">DOE</div>
+                            <h3 class="rfi-card-title">Genesis Mission AI</h3>
+                        </div>
+                        <div class="rfi-card-body">
+                            <p class="rfi-desc">
+                                Advance AI for science and engineering workforce development. Presidential initiative to "double the productivity of American science" by training scientists and engineers in AI-powered research methods.
+                            </p>
+                            <div class="rfi-stats">
+                                <span class="rfi-stat">100,000 SCIENTISTS</span>
+                                <span class="rfi-stat">10 YEAR TIMELINE</span>
+                                <span class="rfi-stat">DEADLINE: MAR 4</span>
+                            </div>
+                            <div class="rfi-links">
+                                <a href="https://www.energy.gov/science/articles/department-energy-seeks-input-advancing-ai-science-and-engineering-workforce" target="_blank" class="rfi-link">DOE ARTICLE</a>
+                                <a href="https://sam.gov/workspace/contract/opp/1f6ee2898b724568b4816de787d0b8f6/view" target="_blank" class="rfi-link">SAM.GOV RFI</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Example Responses Section -->
+            <section class="section" id="responses">
+                <div class="section-header">
+                    <div class="section-bar lavender"></div>
+                    <h2 class="section-title lavender">Published OSTP Responses</h2>
+                </div>
+                <div class="responses-grid">
+                    <a href="https://itif.org/publications/2025/12/18/comments-to-ostp-regarding-accelerating-the-american-scientific-enterprise/" target="_blank" class="response-item">
+                        <div class="response-icon">ITIF</div>
+                        <div>
+                            <div class="response-name">Information Technology & Innovation Foundation</div>
+                            <div class="response-type">THINK TANK</div>
+                        </div>
+                    </a>
+                    <a href="https://www.businessroundtable.org/business-roundtable-response-to-the-request-for-information-on-accelerating-the-american-scientific-enterprise" target="_blank" class="response-item">
+                        <div class="response-icon">BRT</div>
+                        <div>
+                            <div class="response-name">Business Roundtable</div>
+                            <div class="response-type">INDUSTRY</div>
+                        </div>
+                    </a>
+                    <a href="https://www.aau.edu/key-issues/aau-responds-rfi-accelerating-american-scientific-enterprise" target="_blank" class="response-item">
+                        <div class="response-icon">AAU</div>
+                        <div>
+                            <div class="response-name">Association of American Universities</div>
+                            <div class="response-type">ACADEMIC</div>
+                        </div>
+                    </a>
+                    <a href="https://ifp.org/accelerating-the-american-scientific-enterprise/" target="_blank" class="response-item">
+                        <div class="response-icon">IFP</div>
+                        <div>
+                            <div class="response-name">Institute for Progress</div>
+                            <div class="response-type">THINK TANK</div>
+                        </div>
+                    </a>
+                    <a href="https://asm.org/articles/policy/2026/january/asm-responds-to-white-house-ostp-rfi-on-american-s" target="_blank" class="response-item">
+                        <div class="response-icon">ASM</div>
+                        <div>
+                            <div class="response-name">American Society for Microbiology</div>
+                            <div class="response-type">SCIENTIFIC ORG</div>
+                        </div>
+                    </a>
+                    <a href="https://www.acenet.edu/Documents/Letter-OSTP-Scientific-Enterprise-RFI-122225.pdf" target="_blank" class="response-item">
+                        <div class="response-icon">ACE</div>
+                        <div>
+                            <div class="response-name">American Council on Education</div>
+                            <div class="response-type">ACADEMIC // PDF</div>
+                        </div>
+                    </a>
+                </div>
+                <p class="responses-note">
+                    These are responses organizations chose to publish on their own websites. Official government publication of all submitted responses has not yet occurred.
+                </p>
+            </section>
+
+            <!-- Discussion Questions Section -->
+            <section class="section" id="discussion">
+                <div class="section-header">
+                    <div class="section-bar pink"></div>
+                    <h2 class="section-title pink">Discussion Protocol</h2>
+                </div>
+                <div class="questions-container">
+                    <!-- DOE Genesis -->
+                    <div class="question-group genesis">
+                        <div class="question-group-header">
+                            <h3 class="question-group-title">DOE Genesis AI RFI</h3>
+                            <span class="question-group-badge">STILL OPEN - MAR 4</span>
+                        </div>
+                        <div class="question-list">
+                            <div class="question-item">
+                                <span class="question-num">01</span>
+                                <span class="question-text">Would anyone be interested in collaborating on a response?</span>
+                            </div>
+                            <div class="question-item">
+                                <span class="question-num">02</span>
+                                <span class="question-text">What does "doubling productivity of American science" actually mean—more papers, or genuine breakthroughs?</span>
+                            </div>
+                            <div class="question-item">
+                                <span class="question-num">03</span>
+                                <span class="question-text">Is training 100,000 AI scientists/engineers in 10 years realistic? What skills matter most?</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Risks -->
+                    <div class="question-group risks">
+                        <div class="question-group-header">
+                            <h3 class="question-group-title">AI for Science: Risks and Tradeoffs</h3>
+                            <span class="question-group-badge">CRITICAL ANALYSIS</span>
+                        </div>
+                        <div class="question-list">
+                            <div class="question-item">
+                                <span class="question-num">04</span>
+                                <span class="question-text">Could AI actually <em>slow</em> science by accelerating paper production without addressing quality? (See <a href="https://www.normaltech.ai/p/could-ai-slow-science" target="_blank">Normal Tech</a>)</span>
+                            </div>
+                            <div class="question-item">
+                                <span class="question-num">05</span>
+                                <span class="question-text">AI excels at prediction but not understanding—are we building "epicycles" instead of real theories?</span>
+                            </div>
+                            <div class="question-item">
+                                <span class="question-num">06</span>
+                                <span class="question-text">When AI solves problems without human insight, do we lose the field-building essential to progress?</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Geopolitical -->
+                    <div class="question-group geo">
+                        <div class="question-group-header">
+                            <h3 class="question-group-title">Geopolitical Dimensions</h3>
+                            <span class="question-group-badge">STRATEGIC</span>
+                        </div>
+                        <div class="question-list">
+                            <div class="question-item">
+                                <span class="question-num">07</span>
+                                <span class="question-text">Is AI for Science the next arena of US-China competition? How should the US position itself? (See <a href="https://ml4sci.substack.com/p/ai-for-science-the-next-geopolitical" target="_blank">ML4Sci</a>)</span>
+                            </div>
+                            <div class="question-item">
+                                <span class="question-num">08</span>
+                                <span class="question-text">Private companies depend on publicly-funded scientific infrastructure—what's the right public/private balance?</span>
+                            </div>
+                            <div class="question-item">
+                                <span class="question-num">09</span>
+                                <span class="question-text">Should the US emphasize decentralized innovation or more centralized coordination like China?</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NSF Tech Labs -->
+                    <div class="question-group nsf">
+                        <div class="question-group-header">
+                            <h3 class="question-group-title">NSF Tech Labs</h3>
+                            <span class="question-group-badge">CLOSED JAN 20</span>
+                        </div>
+                        <div class="question-list">
+                            <div class="question-item">
+                                <span class="question-num">10</span>
+                                <span class="question-text">What research areas should Tech Labs prioritize?</span>
+                            </div>
+                            <div class="question-item">
+                                <span class="question-num">11</span>
+                                <span class="question-text">How does this model compare to DARPA, ARPA-E, or FROs like Arc Institute?</span>
+                            </div>
+                            <div class="question-item">
+                                <span class="question-num">12</span>
+                                <span class="question-text">Who in our network might be good team leads for the spring solicitation?</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- OSTP Responses -->
+                    <div class="question-group ostp">
+                        <div class="question-group-header">
+                            <h3 class="question-group-title">Analyzing OSTP Responses</h3>
+                            <span class="question-group-badge">REVIEW</span>
+                        </div>
+                        <div class="question-list">
+                            <div class="question-item">
+                                <span class="question-num">13</span>
+                                <span class="question-text">What themes emerge from the publicly shared responses? (ITIF, AAU, Business Roundtable, IFP)</span>
+                            </div>
+                            <div class="question-item">
+                                <span class="question-num">14</span>
+                                <span class="question-text">How do industry vs. academic vs. nonprofit perspectives differ?</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Collaboration -->
+                    <div class="question-group collab">
+                        <div class="question-group-header">
+                            <h3 class="question-group-title">Collaboration</h3>
+                            <span class="question-group-badge">ACTION ITEM</span>
+                        </div>
+                        <div class="question-list">
+                            <div class="question-item">
+                                <span class="question-num">15</span>
+                                <span class="question-text">Should we coordinate a group response to the DOE Genesis AI RFI before March 4?</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resources Section -->
+            <section class="section" id="resources">
+                <div class="section-header">
+                    <div class="section-bar gold"></div>
+                    <h2 class="section-title gold">Resources</h2>
+                </div>
+                <p class="hero-intro" style="margin-bottom: 30px;">
+                    The <strong>NotebookLM</strong> contains all the RFI documents, published responses, and background articles. Use it to quickly search and ask questions about the source materials.
+                </p>
+                <div class="resources-grid">
+                    <div class="qr-container">
+                        <img src="qrcode.png" alt="NotebookLM QR Code">
+                        <div class="qr-label">Scan for NotebookLM</div>
+                    </div>
+                    <div class="resources-links">
+                        <a href="https://notebooklm.google.com/notebook/b255a25e-5409-4f50-833b-46e3ea762c44?authuser=1" target="_blank" class="resource-link">
+                            <div class="resource-link-icon">NB</div>
+                            <span class="resource-link-text">NotebookLM Research Collection - Search & Ask Questions</span>
+                        </a>
+                        <a href="https://sam.gov" target="_blank" class="resource-link">
+                            <div class="resource-link-icon">SAM</div>
+                            <span class="resource-link-text">SAM.gov - Federal RFI Portal</span>
+                        </a>
+                        <a href="http://www.regulations.gov" target="_blank" class="resource-link">
+                            <div class="resource-link-icon">REG</div>
+                            <span class="resource-link-text">Regulations.gov - Public Comments</span>
+                        </a>
+                        <a href="https://www.normaltech.ai/p/could-ai-slow-science" target="_blank" class="resource-link">
+                            <div class="resource-link-icon">NT</div>
+                            <span class="resource-link-text">Normal Tech: Could AI Slow Science?</span>
+                        </a>
+                        <a href="https://ml4sci.substack.com/p/ai-for-science-the-next-geopolitical" target="_blank" class="resource-link">
+                            <div class="resource-link-icon">ML</div>
+                            <span class="resource-link-text">ML4Sci: AI for Science Geopolitics</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Create starfield
+        function createStarfield() {
+            const starfield = document.getElementById('starfield');
+            const numStars = 150;
+
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+
+                // Random position
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+
+                // Random size (1-3px)
+                const size = Math.random() * 2 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+
+                // Random animation properties
+                star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+                star.style.setProperty('--min-opacity', Math.random() * 0.3);
+                star.style.setProperty('--max-opacity', Math.random() * 0.5 + 0.5);
+                star.style.animationDelay = Math.random() * 3 + 's';
+
+                starfield.appendChild(star);
+            }
+        }
+
+        createStarfield();
+
+        // Smooth scrolling for sidebar navigation
+        document.querySelectorAll('.lcars-block').forEach(block => {
+            block.addEventListener('click', (e) => {
+                e.preventDefault();
+                const href = block.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Add active state to sidebar based on scroll position
+        const sections = document.querySelectorAll('.section');
+        const navBlocks = document.querySelectorAll('.lcars-block');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+        });
+
+        // Add LCARS click effect
+        document.querySelectorAll('.lcars-block, .header-btn, .rfi-link, .response-item, .resource-link').forEach(el => {
+            el.addEventListener('click', function(e) {
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                ripple.style.cssText = `
+                    position: absolute;
+                    background: rgba(255, 255, 255, 0.4);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: ripple 0.4s ease-out;
+                    pointer-events: none;
+                `;
+
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+                ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+
+                setTimeout(() => ripple.remove(), 400);
+            });
+        });
+
+        // Add ripple animation to stylesheet
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
