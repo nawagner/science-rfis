@@ -394,10 +394,16 @@
             padding: 15px 20px;
             background: rgba(255, 153, 0, 0.05);
             transition: background 0.3s;
+            text-decoration: none;
+            cursor: pointer;
         }
 
         .timeline-item:hover {
             background: rgba(255, 153, 0, 0.1);
+        }
+
+        a.timeline-item:hover {
+            transform: translateX(5px);
         }
 
         .timeline-item.open {
@@ -471,6 +477,13 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: filter 0.2s;
+        }
+
+        a.rfi-card-header:hover {
+            filter: brightness(1.1);
         }
 
         .rfi-card.nsf .rfi-card-header { background: var(--lcars-orange); }
@@ -928,24 +941,24 @@
                     <h2 class="section-title purple">RFI Deadline Status</h2>
                 </div>
                 <div class="timeline">
-                    <div class="timeline-item">
+                    <a href="https://www.federalregister.gov/documents/2025/11/26/2025-21150/notice-of-request-for-information-accelerating-the-american-scientific-enterprise" target="_blank" class="timeline-item">
                         <span class="timeline-date">DEC 26, 2025</span>
                         <span class="timeline-name">OSTP Scientific Enterprise</span>
                         <span class="timeline-desc">Federal policy to accelerate American science</span>
                         <span class="timeline-status closed">CLOSED</span>
-                    </div>
-                    <div class="timeline-item">
+                    </a>
+                    <a href="https://sam.gov/workspace/contract/opp/7332ade93217443ba8c9abb916904e03/view" target="_blank" class="timeline-item">
                         <span class="timeline-date">JAN 20, 2026</span>
                         <span class="timeline-name">NSF Tech Labs</span>
                         <span class="timeline-desc">Independent research organization funding</span>
                         <span class="timeline-status closed">CLOSED</span>
-                    </div>
-                    <div class="timeline-item open">
+                    </a>
+                    <a href="https://sam.gov/workspace/contract/opp/1f6ee2898b724568b4816de787d0b8f6/view" target="_blank" class="timeline-item open">
                         <span class="timeline-date">MAR 04, 2026</span>
                         <span class="timeline-name">DOE Genesis AI</span>
                         <span class="timeline-desc">AI workforce development initiative</span>
                         <span class="timeline-status open">OPEN</span>
-                    </div>
+                    </a>
                 </div>
             </section>
 
@@ -958,10 +971,10 @@
                 <div class="rfi-grid">
                     <!-- NSF Tech Labs -->
                     <div class="rfi-card nsf">
-                        <div class="rfi-card-header">
+                        <a href="https://sam.gov/workspace/contract/opp/7332ade93217443ba8c9abb916904e03/view" target="_blank" class="rfi-card-header">
                             <div class="rfi-icon">NSF</div>
                             <h3 class="rfi-card-title">Tech Labs Initiative</h3>
-                        </div>
+                        </a>
                         <div class="rfi-card-body">
                             <p class="rfi-desc">
                                 Fund independent research organizations to address technical challenges traditional university and industry labs cannot easily solve. Full-time teams with operational autonomy pursuing breakthrough science.
@@ -980,10 +993,10 @@
 
                     <!-- OSTP -->
                     <div class="rfi-card ostp">
-                        <div class="rfi-card-header">
+                        <a href="https://www.federalregister.gov/documents/2025/11/26/2025-21150/notice-of-request-for-information-accelerating-the-american-scientific-enterprise" target="_blank" class="rfi-card-header">
                             <div class="rfi-icon">OSTP</div>
                             <h3 class="rfi-card-title">Scientific Enterprise</h3>
-                        </div>
+                        </a>
                         <div class="rfi-card-body">
                             <p class="rfi-desc">
                                 Federal policy updates to accelerate American science, enable groundbreaking discoveries, and ensure scientific progress benefits all Americans. Covers funding mechanisms, public-private partnerships, and regulatory reform.
@@ -1001,10 +1014,10 @@
 
                     <!-- DOE Genesis -->
                     <div class="rfi-card doe">
-                        <div class="rfi-card-header">
+                        <a href="https://sam.gov/workspace/contract/opp/1f6ee2898b724568b4816de787d0b8f6/view" target="_blank" class="rfi-card-header">
                             <div class="rfi-icon">DOE</div>
                             <h3 class="rfi-card-title">Genesis Mission AI</h3>
-                        </div>
+                        </a>
                         <div class="rfi-card-body">
                             <p class="rfi-desc">
                                 Advance AI for science and engineering workforce development. Presidential initiative to "double the productivity of American science" by training scientists and engineers in AI-powered research methods.
