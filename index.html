@@ -22,7 +22,7 @@
             --lcars-tan: #bb9966;
             --bg-dark: #000000;
             --bg-panel: #111118;
-            --text-primary: #ffcc99;
+            --text-primary: #ffd6a8;
             --text-secondary: #cc99cc;
         }
 
@@ -96,6 +96,7 @@
 
         /* Left sidebar */
         .lcars-sidebar {
+            grid-row: 1 / -1;
             display: flex;
             flex-direction: column;
             gap: 3px;
@@ -148,14 +149,14 @@
 
         .lcars-spacer {
             flex: 1;
-            background: var(--lcars-tan);
+            background: transparent;
             min-height: 100px;
             border-radius: 0 0 0 40px;
         }
 
         .lcars-bottom-cap {
             background: var(--lcars-orange);
-            height: 80px;
+            height: 120px;
             border-radius: 0 0 0 40px;
             display: flex;
             align-items: center;
@@ -163,9 +164,11 @@
         }
 
         .lcars-bottom-cap img {
-            width: 60px;
-            height: 60px;
+            width: 90px;
+            height: 90px;
             border-radius: 8px;
+            padding: 4px;
+            background: white;
         }
 
         /* Header bar */
@@ -174,7 +177,7 @@
             display: flex;
             align-items: stretch;
             gap: 3px;
-            height: 140px;
+            height: 105px;
             position: relative;
         }
 
@@ -200,10 +203,10 @@
             position: absolute;
             bottom: 0;
             right: 0;
-            width: 60px;
-            height: 60px;
+            width: 40px;
+            height: 40px;
             background: var(--bg-dark);
-            border-radius: 40px 0 0 0;
+            border-radius: 28px 0 0 0;
         }
 
         .header-bar {
@@ -222,7 +225,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 80px;
+            height: 30px;
             background: var(--bg-dark);
         }
 
@@ -242,7 +245,7 @@
 
         .header-title .subtitle {
             font-family: 'Share Tech Mono', monospace;
-            font-size: 28px;
+            font-size: 22px;
             color: var(--lcars-gold);
             margin-top: 0;
         }
@@ -289,20 +292,20 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 60px;
+            height: 22px;
             background: var(--bg-dark);
         }
 
         /* Main content */
         .lcars-content {
             grid-column: 2;
-            padding: 20px 40px;
+            padding: 15px 30px 60px 30px;
             overflow-y: auto;
         }
 
         /* Section styling */
         .section {
-            margin-bottom: 50px;
+            margin-bottom: 35px;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeIn 0.6s ease forwards;
@@ -347,6 +350,7 @@
             font-size: 18px;
             letter-spacing: 3px;
             text-transform: uppercase;
+            text-shadow: 0 0 20px currentColor, 0 0 40px rgba(255, 153, 0, 0.1);
         }
 
         .section-title.orange { color: var(--lcars-orange); }
@@ -357,12 +361,33 @@
         .section-title.gold { color: var(--lcars-gold); }
 
         /* Hero section */
+        .section#hero::before {
+            content: '';
+            display: block;
+            height: 4px;
+            background: linear-gradient(
+                90deg,
+                var(--lcars-orange) 30%,
+                var(--lcars-purple) 30%,
+                var(--lcars-purple) 50%,
+                var(--lcars-cyan) 50%,
+                var(--lcars-cyan) 70%,
+                var(--lcars-gold) 70%
+            );
+            border-radius: 2px;
+            margin-bottom: 24px;
+        }
+
         .hero-intro {
-            font-size: 18px;
-            line-height: 1.8;
+            font-size: 19px;
+            line-height: 1.85;
             color: var(--lcars-beige);
             max-width: 800px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            background: rgba(17, 17, 24, 0.6);
+            padding: 20px 25px;
+            border-left: 4px solid var(--lcars-orange);
+            border-radius: 0 12px 12px 0;
         }
 
         .hero-intro strong {
@@ -371,9 +396,28 @@
 
         .stardate {
             font-family: 'Share Tech Mono', monospace;
-            font-size: 14px;
+            font-size: 15px;
             color: var(--lcars-purple);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            border-left: 3px solid var(--lcars-purple);
+            padding-left: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stardate::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--lcars-cyan);
+            animation: statusBlink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes statusBlink {
+            0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--lcars-cyan); }
+            50% { opacity: 0.3; box-shadow: none; }
         }
 
         /* Timeline */
@@ -585,9 +629,13 @@
         }
 
         .response-item:hover {
-            background: rgba(153, 153, 255, 0.1);
+            background: linear-gradient(90deg, rgba(153, 153, 255, 0.1), transparent);
             border-left-color: var(--lcars-cyan);
             transform: translateX(5px);
+        }
+
+        .response-item:nth-child(even) {
+            border-left-color: var(--lcars-blue);
         }
 
         .response-icon {
@@ -602,6 +650,11 @@
             font-size: 10px;
             color: var(--bg-dark);
             flex-shrink: 0;
+            transition: box-shadow 0.3s;
+        }
+
+        .response-item:hover .response-icon {
+            box-shadow: 0 0 14px rgba(153, 153, 255, 0.6);
         }
 
         .response-name {
@@ -704,10 +757,27 @@
 
         .question-num {
             font-family: 'Share Tech Mono', monospace;
-            font-size: 12px;
-            color: var(--lcars-purple);
-            min-width: 30px;
+            font-size: 11px;
+            color: var(--bg-dark);
+            background: var(--lcars-purple);
+            min-width: 32px;
+            height: 24px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+            font-weight: 600;
         }
+
+        .question-group.genesis .question-num { background: var(--lcars-cyan); }
+        .question-group.risks .question-num { background: var(--lcars-pink); }
+        .question-group.geo .question-num { background: var(--lcars-lavender); }
+        .question-group.nsf .question-num { background: var(--lcars-orange); }
+        .question-group.ostp .question-num { background: var(--lcars-purple); }
+        .question-group.collab .question-num { background: var(--lcars-gold); }
+        .question-group.future .question-num { background: var(--lcars-tan); }
 
         .question-text {
             font-size: 15px;
@@ -761,6 +831,8 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+            border-left: 2px solid rgba(255, 153, 0, 0.2);
+            padding-left: 20px;
         }
 
         .resource-link {
@@ -796,6 +868,40 @@
         .resource-link-text {
             font-size: 14px;
             color: var(--text-primary);
+        }
+
+        /* LCARS Footer */
+        .lcars-footer {
+            grid-column: 2;
+            display: flex;
+            align-items: stretch;
+            gap: 3px;
+            height: 50px;
+            margin-top: 10px;
+        }
+
+        .footer-bar {
+            flex: 1;
+            background: var(--lcars-orange);
+            border-radius: 0 0 0 20px;
+        }
+
+        .footer-text {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            color: var(--lcars-gold);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            background: var(--bg-panel);
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+
+        .footer-end {
+            width: 60px;
+            background: var(--lcars-purple);
+            border-radius: 0 0 30px 0;
         }
 
         /* Responsive */
@@ -861,6 +967,21 @@
                 max-width: 200px;
                 margin: 0 auto;
             }
+
+            .lcars-footer {
+                grid-column: 1;
+                height: 40px;
+            }
+
+            .footer-text {
+                font-size: 9px;
+                letter-spacing: 1px;
+            }
+
+            .resources-links {
+                border-left: none;
+                padding-left: 0;
+            }
         }
 
         /* Scan line effect */
@@ -874,9 +995,9 @@
             background: repeating-linear-gradient(
                 0deg,
                 transparent,
-                transparent 2px,
-                rgba(0, 0, 0, 0.03) 2px,
-                rgba(0, 0, 0, 0.03) 4px
+                transparent 3px,
+                rgba(0, 0, 0, 0.015) 3px,
+                rgba(0, 0, 0, 0.015) 6px
             );
             pointer-events: none;
             z-index: 1000;
@@ -1307,6 +1428,13 @@
                 </div>
             </section>
         </main>
+
+        <!-- Footer -->
+        <footer class="lcars-footer">
+            <div class="footer-bar"></div>
+            <div class="footer-text">UNITED FEDERATION OF POLICY NERDS // INDUSTRIAL POLICY SALON 2026</div>
+            <div class="footer-end"></div>
+        </footer>
     </div>
 
     <script>
